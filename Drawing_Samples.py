@@ -2,6 +2,15 @@ import pandas as pd
 import numpy as np
 import zipfile
 
+sophit_forms = {        # constants for use throughout the program
+        "ך": "כ",
+        "ם": "מ",
+        "ן": "נ",
+        "ף": "פ",
+        "ץ": "צ"
+    }
+gutturals = ["א", "ה", "ע", "ר", "ח"]
+
 def add_root_column(bhs_nouns, strong_nouns):
     """
     Given the dataframe of BHS nouns and the dataframe of Strong's nouns,
@@ -27,6 +36,28 @@ def add_root_column(bhs_nouns, strong_nouns):
 
     return bhs_nouns
 
+def convert_sofit(text):
+    """
+    Converts the last letter of a text into a regular form if it is a sophit
+    form. Otherwise, the text remains unchanged.
+
+    Inputs:
+        text (str): A string of Hebrew text whose last letter will be checked
+        and replaced if needed.
+
+    Output:
+        reg_text (str): the text with the last letter converted to a regular
+        form if necessary.
+    """
+    if pd.isna(text) or text == "":
+        return text
+    else:
+        text = str(text)
+        final_letter = text[-1]
+        regular_letter = sophit_forms.get(final_letter, final_letter)
+    
+    return text[:-1] + regular_letter
+
 
 """
 Importing in csv file of all Hebrew words with Strong's numbers
@@ -42,6 +73,13 @@ noun_types = ["noun masc", "noun fem", "n-e"]
 strongs_all_nouns = strongs[strongs["Part of Speech"].isin(noun_types)]
 
 """
+Changing sophit forms into regular forms for ease of finding gemination in future
+filters and analysis.
+"""
+strongs_all_nouns["Root"] = strongs_all_nouns["Root"].apply(convert_sofit)
+
+
+"""
 Filtering out geminate roots for all nouns which have roots listed.
 """
 non_gem_nouns = strongs_all_nouns[strongs_all_nouns["Root"].str.get(-1) != strongs_all_nouns["Root"].str.get(-2)]
@@ -55,7 +93,6 @@ non_bicon_nouns = non_gem_nouns[non_gem_nouns["Root"].str.len() != 2]
 """
 Filtering out roots with final guttural for all nouns with roots listed.
 """
-gutturals = ["א", "ה", "ע", "ר", "ח"]
 strong_nouns = non_bicon_nouns[~non_bicon_nouns["Root"].str.get(-1).isin(gutturals)]
 
 
@@ -103,7 +140,7 @@ could occur. Thus, by sampling 500 rows, we hope to get a significant amount of
 usable data points. For the Strong's dataframe, we will look at an entire noun
 paradigm and expect to have more usable data points. So we only sample 100 rows.
 """
-sample_bhs = bhs_nouns_final.sample(n=500, random_state=1)
+sample_bhs = bhs_nouns_final.sample(n=1000, random_state=1)
 sample_strongs = strong_nouns.sample(n=100, random_state = 2)
 
 sample_bhs.to_csv("bhs_sample.csv")
