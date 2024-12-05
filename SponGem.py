@@ -38,7 +38,6 @@ def find_spon_gem(sample):
             if not gemination in word:      # drops the row if no gemination of last root letter
                 rows_to_drop.append(i)
         else:
-            print("no root")                 # case when word has no listed root
             if dagesh not in word:      # drops the row if word does not contain a dagesh
                 rows_to_drop.append(i)
     
@@ -46,7 +45,6 @@ def find_spon_gem(sample):
     return candidates
 
 bhs_csv = pd.read_csv("bhs_sample.csv")     # reading in the sample csv
-print(bhs_csv[:10])
 
 filtered_sample = find_spon_gem(bhs_csv)    # identifying spontaneous gemination
 
