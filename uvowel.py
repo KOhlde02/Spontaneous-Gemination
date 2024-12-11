@@ -53,7 +53,7 @@ def get_u_vowels(df):
     """
 
     rows_to_drop = []
-    u_vowels = {"\u05BC", "\u05BB"}     # storing rows to drop as a set
+    u_vowels = {"\u05BC", "\u05BB"}     # unicode representation of Hebrew u vowels
 
     for i, row in df.iterrows():
         if row["Root"].notna():     # does the following procedure for each row with root
