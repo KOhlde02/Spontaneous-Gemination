@@ -30,7 +30,9 @@ Note the second set of files may not be well-documented
 Citations:
 
 eliranwong. (2018). GitHub - eliranwong/OpenHebrewBible: Open Hebrew Bible Project; aligning BHS with WLC;     bridging ETCBC, OpenScriptures & Berean data on Hebrew Bible. GitHub.   https://github.com/eliranwong/OpenHebrewBible/tree/master
+
 ETCBC. (2023, October 28). GitHub - ETCBC/bhsa: Hebrew Bible + Linguistic annotations in text-fabric format. Fixed and ongoing versions. GitHub. https://github.com/ETCBC/bhsa
+
 glenscriv. (2013, July 15). Strong’s Goes Excel – Christ the Truth. Christthetruth.net. https://www.christthetruth.net/2013/07/15/strongs-goes-excel/
 
 
