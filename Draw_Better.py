@@ -2,9 +2,9 @@
 The goal of this file is to filter the data better than in Drawing_Samples.py
 based on a few observations:
     - spontaneous gemination doesn't seem to be happening in hollow roots
-    - with some exceptions, spontaneous gemination is preceded by a short vowel.
+    - spontaneous gemination doesn't happen when the preceding vowel is a schwa
     - For nouns with no root listed, we can filter out entries with length less
-        than three letters (since we need strong middle and third root constants
+        than five (since we need strong middle and third root constants
         with a suffix)
 """
 
@@ -63,7 +63,7 @@ def get_following_vowel(word, letter):
         vowel (str): the following vowel. Returns None if the letter or
         consonant not found.
     """
-     # checks if the given letter is in the given word, records its index if so
+    # checks if the given letter is in the given word, records its index if so
     if letter in word:
         index = word.index(letter)
     else:
